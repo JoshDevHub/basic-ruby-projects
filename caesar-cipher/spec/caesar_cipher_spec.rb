@@ -20,8 +20,4 @@ describe '#caesar_cipher' do
   it 'the shift wraps if the shift factor leads the character beyond Z/z' do
     expect(caesar_cipher('Z', 1)).to eql('A')
   end
-
-  # it 'shifts a string with a large shift factor' do
-    # expect(caesar_cipher('Hello, World!', 75)).to eql('Ebiil, Tloia!')
-  # end
 end
