@@ -4,20 +4,32 @@
 
 require './caesar-cipher'
 
-describe '#caesar_cipher' do
-  it 'takes shifts a string of lowercase letters' do
-    expect(caesar_cipher('jvtwbaly', 19)).to eql('computer')
-  end
+describe CaesarCipher do
+  describe '#encode' do
+    subject(:cipher) { described_class.new }
 
-  it 'it shifts a string of uppercase letters' do
-    expect(caesar_cipher('JVTWBALY', 19)).to eql('COMPUTER')
-  end
+    it 'shifts a string of lowercase letters by 19 spots' do
+      string_to_decode = 'jvtwbaly'
+      shift_factor = 19
+      expect(cipher.encode(string_to_decode, shift_factor)).to eql('computer')
+    end
 
-  it 'ignores non-alphabetical characters' do
-    expect(caesar_cipher('Gdkkn, Vnqkc!', 1)).to eql('Hello, World!')
-  end
+    it 'shitfs a string of uppercase letters by 19 spots' do
+      uppercase_string = 'JVTWBALY'
+      shift_factor = 19
+      expect(cipher.encode(uppercase_string, shift_factor)).to eql('COMPUTER')
+    end
 
-  it 'the shift wraps if the shift factor leads the character beyond Z/z' do
-    expect(caesar_cipher('Z', 1)).to eql('A')
+    it 'ignores non-alphabetical characters when shifting' do
+      string = 'Hello, World!'
+      shift_factor = 1
+      expect(caesar_cipher(string, shift_factor)).to include(',', '!')
+    end
+
+    it 'wraps if the shift factor carries the character beyond Z' do
+      string = 'Z'
+      shift_factor = 1
+      expect(caesar_cipher(string, shift_factor)).to eql('A')
+    end
   end
 end
