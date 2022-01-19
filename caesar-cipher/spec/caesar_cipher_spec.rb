@@ -2,7 +2,7 @@
 
 # spec/caesar_cipher_spec.rb
 
-require './caesar-cipher'
+require './caesar_cipher'
 
 describe CaesarCipher do
   describe '#encode' do
