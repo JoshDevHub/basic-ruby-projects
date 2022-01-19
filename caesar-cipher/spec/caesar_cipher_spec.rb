@@ -23,13 +23,13 @@ describe CaesarCipher do
     it 'ignores non-alphabetical characters when shifting' do
       string = 'Hello, World!'
       shift_factor = 1
-      expect(caesar_cipher(string, shift_factor)).to include(',', '!')
+      expect(cipher.encode(string, shift_factor)).to include(',', '!')
     end
 
     it 'wraps if the shift factor carries the character beyond Z' do
       string = 'Z'
       shift_factor = 1
-      expect(caesar_cipher(string, shift_factor)).to eql('A')
+      expect(cipher.encode(string, shift_factor)).to eql('A')
     end
   end
 end
