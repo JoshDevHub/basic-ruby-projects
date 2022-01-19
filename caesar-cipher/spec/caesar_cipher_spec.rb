@@ -31,5 +31,23 @@ describe CaesarCipher do
       shift_factor = 1
       expect(cipher.encode(string, shift_factor)).to eql('A')
     end
+
+    it 'shifts a string with a negative -10 factor' do
+      string = 'rovvy, gybvn'
+      shift_factor = -10
+      expect(cipher.encode(string, shift_factor)).to eql('hello, world')
+    end
+
+    it 'shifts a string with a large factor of 117' do
+      string = 'uryyb, jbeyq'
+      shift_factor = 117
+      expect(cipher.encode(string, shift_factor)).to eql('hello, world')
+    end
+
+    it 'shifts a string with a large negative factor of -82' do
+      string = 'lipps, asvph'
+      shift_factor = -82
+      expect(cipher.encode(string, shift_factor)).to eql('hello, world')
+    end
   end
 end

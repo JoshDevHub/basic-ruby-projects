@@ -7,27 +7,13 @@ class CaesarCipher
     return plaintext if adjusted_shift.zero?
 
     shifted_array = plaintext.codepoints.map do |ascii_char|
-      if ascii_char > 96 && ascii_char < 123
-        ascii_char += adjusted_shift
-        if ascii_char > 122
-          offset = ascii_char - 122
-          96 + offset
-        else
-          ascii_char
-        end
-      elsif ascii_char > 64 && ascii_char < 91
-        ascii_char += adjusted_shift
-        if ascii_char > 90
-          offset = ascii_char - 90
-          64 + offset
-        else
-          ascii_char
-        end
+      if alphabetical?(ascii_char)
+        shift_char(ascii_char, adjusted_shift)
       else
         ascii_char
       end
     end
-    shifted_array.map { |number| number.chr }.join
+    shifted_array.map(&:chr).join
   end
 
   def adjust_shift(number)
@@ -38,6 +24,28 @@ class CaesarCipher
       number
     end
   end
-end
 
-p CaesarCipher.new.encode('A', -1)
+  def lowercase?(char)
+    char.between?(97, 122)
+  end
+
+  def uppercase?(char)
+    char.between?(65, 90)
+  end
+
+  def alphabetical?(char)
+    lowercase?(char) || uppercase?(char)
+  end
+
+  def shift_char(char, shift)
+    new_char = char + shift
+    if lowercase?(char) && new_char > 122
+      offset = new_char - 122
+      new_char = 96 + offset
+    elsif uppercase?(char) && new_char > 90
+      offset = new_char - 90
+      new_char = 64 + offset
+    end
+    new_char
+  end
+end
